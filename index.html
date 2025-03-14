@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="pt">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rastreamento GPS</title>
 </head>
+
 <body>
     <h2>Enviando localização...</h2>
     <script>
@@ -14,15 +16,16 @@
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(position => {
                     const { latitude, longitude } = position.coords;
-                    
-                    fetch("http://seu-servidor.com/update-location", {
+
+                    fetch("https://randomsub.ngrok.io/update-location", {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify({ vehicleId, latitude, longitude })
                     })
-                    .then(response => response.json())
-                    .then(data => console.log("Localização enviada:", data))
-                    .catch(error => console.error("Erro ao enviar:", error));
+
+                        .then(response => response.json())
+                        .then(data => console.log("Localização enviada:", data))
+                        .catch(error => console.error("Erro ao enviar:", error));
                 }, error => {
                     console.error("Erro ao obter localização:", error);
                     alert("Erro ao obter a localização. Certifique-se de que as permissões estão ativadas.");
@@ -35,4 +38,5 @@
         setInterval(sendLocation, 10000); // Enviar a cada 10s
     </script>
 </body>
+
 </html>
